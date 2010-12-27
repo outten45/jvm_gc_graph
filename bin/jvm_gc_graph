@@ -7,10 +7,6 @@ options = {}
 op = OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options]"
   
-  # opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-  #   options[:verbose] = v
-  # end
-  
   # Mandatory argument.
   opts.on("-f", "--file FILE", "FILE containing the output from -Xloggc:filename") do |f|
     options[:file] = f
@@ -20,10 +16,13 @@ op = OptionParser.new do |opts|
     options[:output] = o
   end
 
+  opts.on("-t", "--title TITLE", "The TITLE to add to the html page.") do |t|
+    options[:title] = t
+  end
+
 end
 op.parse!
 
-puts STDOUT.class
 
 if options[:file].nil?
   puts op
@@ -31,5 +30,6 @@ if options[:file].nil?
 end
 
 options[:output] = STDOUT if options[:output].nil?
+options[:title] = "MEmory Usage" if options[:title].nil?
 
-JvmGcGraph::Runner.run(options[:file], options[:output])
+JvmGcGraph::Runner.run(options)
