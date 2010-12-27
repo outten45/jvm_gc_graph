@@ -14,10 +14,11 @@ Gem::Specification.new do |s|
 to display the GC in graph format.}
 
   s.rubyforge_project = "jvm_gc_graph"
-
+  s.add_dependency('json_pure',  '~> 1.4.6')  if RUBY_VERSION =~ /1.8/
+  
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = %w(jvm_gc_graph)
-    #`git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  #`git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 end
