@@ -9,14 +9,19 @@ module JvmGcGraph
       def run(opts)
         pml = JvmGcGraph::ParseMemoryLog.new(opts)
         pml.json
-        output(pml)
+        html = output(pml)
+        if opts[:output].is_a?(IO)
+          opts[:output].puts html
+        else
+          File.open(opts[:output],'w') {|f| f.write(html)}
+        end
       end
       
       def output(parse_memory_log)
         file = File.join(File.dirname(__FILE__),'templates','gc_chart.html.erb')
         template = File.read(File.expand_path(file))
         erb = ERB.new(template)
-        erb.run(parse_memory_log.get_binding)
+        erb.result(parse_memory_log.get_binding)
       end
     end
   end
@@ -44,24 +49,25 @@ module JvmGcGraph
     def parse_lines
       lines.each do |line|
         if m = line.match(GC_REGEX)
-          @data << [
-                    ((@start_time + m[0].to_i)*1000),
-                    m[4].to_f, nil,nil,
-                    m[5].to_f, nil,nil,
-                    m[6].to_f, nil,nil
-                   ]
-          @gc_data << [((@start_time + m[0].to_i)*1000), (m[7].to_f*1000), nil,nil]
+          add_gc_arrays(m)
         elsif m = line.match(FULL_GC_REGEX)
-          # puts "must be FULL: #{line}"
-          @data << [
-                    ((@start_time + m[0].to_i)*1000),
-                    m[4].to_f, nil, nil,
-                    m[5].to_f, nil,nil,
-                    m[6].to_f, nil,nil
-                   ]
-          @gc_data << [((@start_time + m[0].to_i)*1000), (m[7].to_f*1000), nil,nil]
+          # might want to do something different with Full GC
+          add_gc_arrays(m)
         end
       end
+    end
+
+    def add_gc_arrays(matches)
+      add_to_array(@data, matches[0].to_i,
+                   [matches[4].to_f, nil,nil,
+                    matches[5].to_f, nil,nil,
+                    matches[6].to_f, nil,nil])
+      add_to_array(@gc_data, matches[0].to_i, [(matches[7].to_f*1000), nil,nil])
+    end
+
+    def add_to_array(data_values, time, values)
+      d = [((@start_time + time)*1000)]
+      data_values << (d + values)
     end
 
     def json

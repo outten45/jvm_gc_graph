@@ -38,6 +38,6 @@ if options[:file].nil?
 end
 
 options[:output] = STDOUT if options[:output].nil?
-options[:title] = "MEmory Usage" if options[:title].nil?
+options[:title] = "Memory Usage" if options[:title].nil?
 
 JvmGcGraph::Runner.run(options)
