@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Richard Outten"]
   s.email       = ["outtenr@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/outten45/jvm_gc_graph"
   s.summary     = %q{Creates an HTML output for graphing Java GC.}
   s.description = %q{Creates an HTML output that uses Google Interactive Charts
 to display the GC in graph format.}
