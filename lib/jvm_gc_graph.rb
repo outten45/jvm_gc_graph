@@ -4,15 +4,20 @@ require 'erb'
 module JvmGcGraph
 
   class Runner
-    
-    def self.run(file, output)
-      pml = JvmGcGraph::ParseMemoryLog.new(file)
-      puts pml.json.inspect
-    end
 
-    def output
-      template = File.read(file)
-      result = ERB.new(template).result(binding)
+    class << self
+      def run(file, output)
+        pml = JvmGcGraph::ParseMemoryLog.new(file)
+        pml.json
+        output(pml)
+      end
+      
+      def output(parse_memory_log)
+        file = File.join(File.dirname(__FILE__),'templates','gc_chart.html.erb')
+        template = File.read(File.expand_path(file))
+        erb = ERB.new(template)
+        erb.run(parse_memory_log.get_binding)
+      end
     end
   end
 
@@ -48,7 +53,7 @@ module JvmGcGraph
 
     def json
       parse_lines
-      @data.to_json
+      @data
     end
     
   end
