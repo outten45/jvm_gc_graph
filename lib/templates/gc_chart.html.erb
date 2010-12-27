@@ -25,17 +25,6 @@
         }
       };
       function drawChart() {
-        // var d = [];
-        // for(var i=0; i < lineData.length; i++) {
-        //   var tt = [];
-        //   var ll = lineData[i];
-        //   var dt = new Date(ll.shift());
-        //   tt.push(dt);
-        //   for(var j=0; j < ll.length; j++) {
-        //     tt.push(ll[j]);
-        //   }
-        //   d.push(tt);
-        // }
         var d = generator.createData(lineData);
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'Date');
@@ -75,5 +64,6 @@
     <h2>Collection Time</h2>
     <div id='chart_gc_time_div' style='width: 900px; height: 500px;'></div>
 
+    <h5>Generated: <%= Time.now %></h5>
   </body>
 </html>
