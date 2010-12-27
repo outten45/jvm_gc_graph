@@ -1,26 +1,29 @@
 ## JVM GC Graph
 
-Simple gem that creates a static HTML page that uses Google's 
-Interactive Charts to display JVM heap usage output to a file.  In
-order of this to work, you need to pass the following options to the
-JVM:
+This gem creates a static HTML page that uses Google's 
+Interactive Charts to display JVM heap usage.  In order of this to
+work, you need to pass the following options to the JVM at startup:
 
     -XX:-PrintGCTimeStamps -XX:-PrintGCDetails -Xloggc:<location of log file>
 
 Here is an example:
 
-  java -XX:-PrintGCTimeStamps -XX:-PrintGCDetails -Xloggc:memory.log MyApp
+    java -XX:-PrintGCTimeStamps -XX:-PrintGCDetails -Xloggc:/path/to/memory_gc.log MyApp
 
 ## Installation
 
     gem install jvm_gc_graph
 
+Does require the json_pure gem if on 1.8.7.
+
 ## Usage
 
     jvm_gc_graph -f /path/to/memory_gc.log -o /www/gc_log.html
 
-1) Looks at /path/to/memory_gc.log which contains the gc log
-2) Writes the result to the gc_log.html file.
+1. Looks at /path/to/memory_gc.log which contains the gc log
+2. Writes the result to the gc_log.html file.
+
+See `jvm_gc_graph -h` for more options.
 
 ## Other
 

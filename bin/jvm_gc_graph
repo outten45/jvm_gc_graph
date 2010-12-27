@@ -23,7 +23,6 @@ op = OptionParser.new do |opts|
   opts.on('-h', "--help", "Display help message.") do |h|
     options[:help] = true
   end
-
 end
 op.parse!
 
