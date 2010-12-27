@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require 'jvm_gc_graph'
+require 'optparse'
+
+options = {}
+op = OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename($0)} [options]"
+  
+  # opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+  #   options[:verbose] = v
+  # end
+  
+  # Mandatory argument.
+  opts.on("-f", "--file FILE", "FILE containing the output from -Xloggc:filename") do |f|
+    options[:file] = f
+  end
+  
+  opts.on("-o", "--output OUTPUT", "Generated HTML file.") do |o|
+    options[:output] = o
+  end
+
+end
+op.parse!
+
+puts STDOUT.class
+
+if options[:file].nil?
+  puts op
+  exit(1)
+end
+
+options[:output] = STDOUT if options[:output].nil?
+
+JvmGcGraph::Runner.run(options[:file], options[:output])
