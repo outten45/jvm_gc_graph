@@ -6,7 +6,7 @@ require 'optparse'
 options = {}
 op = OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options]"
-  
+
   # Mandatory argument.
   opts.on("-f", "--file FILE", "FILE containing the output from -Xloggc:filename") do |f|
     options[:file] = f
@@ -20,9 +20,17 @@ op = OptionParser.new do |opts|
     options[:title] = t
   end
 
+  opts.on('-h', "--help", "Display help message.") do |h|
+    options[:help] = true
+  end
+
 end
 op.parse!
 
+if options[:help]
+  puts op
+  exit(0)
+end
 
 if options[:file].nil?
   puts op
