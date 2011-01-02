@@ -25,6 +25,10 @@ Does require the json_pure gem if on 1.8.7.
 
 See `jvm_gc_graph -h` for more options.
 
+## Screenshot
+
+![](https://github.com/outten45/jvm_gc_graph/raw/master/docs/memory_usage.jpg)
+
 ## Other
 
 For a much richer tool, try [GCViewer](http://www.tagtraum.com/gcviewer.html).
