@@ -27,7 +27,7 @@ See `jvm_gc_graph -h` for more options.
 
 ## Screenshot
 
-![](https://github.com/outten45/jvm_gc_graph/raw/master/docs/memory_usage.jpg)
+![](https://github.com/outten45/jvm_gc_graph/raw/master/docs/memory_usage_example.png)
 
 ## Other
 
